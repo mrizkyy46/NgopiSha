@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useState, useRef } from "react";
-import { BrewRecipe } from "@/types/brewing";
-import { BrewTimer } from "./BrewTimer";
+import React, { useState, useRef } from 'react';
+import { BrewRecipe } from '@/types/brewing';
+import { BrewTimer } from './BrewTimer';
 import {
   Thermometer,
   Scale,
@@ -18,25 +18,22 @@ import {
   Lightbulb,
   ArrowUpRight,
   Sparkles,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface BrewResultProps {
   recipe: BrewRecipe;
   onEditRecipe: () => void;
 }
 
-export const BrewResult: React.FC<BrewResultProps> = ({
-  recipe,
-  onEditRecipe,
-}) => {
+export const BrewResult: React.FC<BrewResultProps> = ({ recipe, onEditRecipe }) => {
   const [copied, setCopied] = useState(false);
   const [activeStepIndex, setActiveStepIndex] = useState<number>(0);
   const timerRef = useRef<HTMLDivElement>(null);
 
-  const isIce = recipe.input.method === "Ice";
+  const isIce = recipe.input.method === 'Ice';
 
   const scrollToTimer = () => {
-    timerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    timerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   const handleCopyRecipe = async () => {
@@ -56,12 +53,12 @@ export const BrewResult: React.FC<BrewResultProps> = ({
       `TAHAPAN SEDUH (POURS):`,
       ...recipe.steps.map(
         (s) =>
-          `${s.stepNumber}. [${s.timeRangeFormatted}] ${s.name}: Tuang ${s.waterAmount}ml (Kumulatif: ${s.cumulativeWater}ml) - ${s.technique}`,
+          `${s.stepNumber}. [${s.timeRangeFormatted}] ${s.name}: Tuang ${s.waterAmount}ml (Kumulatif: ${s.cumulativeWater}ml) - ${s.technique}`
       ),
       `-----------------------------------------`,
       `Catatan: ${recipe.flavorNotesExplanation}`,
       `#NgopiSha V60 Brewing System`,
-    ].join("\n");
+    ].join('\n');
 
     try {
       await navigator.clipboard.writeText(text);
@@ -86,15 +83,11 @@ export const BrewResult: React.FC<BrewResultProps> = ({
               <span
                 className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold ${
                   isIce
-                    ? "bg-cyan-500/20 text-cyan-200 border border-cyan-400/30"
-                    : "bg-amber-500/20 text-amber-200 border border-amber-400/30"
+                    ? 'bg-cyan-500/20 text-cyan-200 border border-cyan-400/30'
+                    : 'bg-amber-500/20 text-amber-200 border border-amber-400/30'
                 }`}
               >
-                {isIce ? (
-                  <Snowflake className="w-3.5 h-3.5" />
-                ) : (
-                  <Flame className="w-3.5 h-3.5" />
-                )}
+                {isIce ? <Snowflake className="w-3.5 h-3.5" /> : <Flame className="w-3.5 h-3.5" />}
                 {recipe.input.method} V60
               </span>
               <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-white/10 text-stone-200 border border-white/10">
@@ -110,13 +103,12 @@ export const BrewResult: React.FC<BrewResultProps> = ({
 
             <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
               <Coffee className="w-6 h-6 text-amber-400 shrink-0" />
-              {recipe.input.beanName || "Biji Kopi Pilihan"}
+              {recipe.input.beanName || 'Biji Kopi Pilihan'}
             </h2>
 
             <p className="text-xs text-amber-200/80 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-              Target profil: <strong>{recipe.input.targetProfile}</strong>{" "}
-              menggunakan air <strong>{recipe.input.waterSource}</strong>
+              Target profil: <strong>{recipe.input.targetProfile}</strong> menggunakan air <strong>{recipe.input.waterSource}</strong>
             </p>
           </div>
 
@@ -172,16 +164,13 @@ export const BrewResult: React.FC<BrewResultProps> = ({
         <div className="bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 rounded-2xl p-4 shadow-xs">
           <div className="flex items-center gap-2 text-stone-500 dark:text-stone-400 text-xs font-medium mb-1">
             <Droplets className="w-4 h-4 text-sky-500" />
-            {isIce ? "Volume Cairan" : "Total Air"}
+            {isIce ? 'Volume Cairan' : 'Total Air'}
           </div>
           <div className="text-xl sm:text-2xl font-black text-stone-900 dark:text-stone-50">
-            {recipe.totalWater}{" "}
-            <span className="text-sm font-semibold text-stone-500">ml</span>
+            {recipe.totalWater} <span className="text-sm font-semibold text-stone-500">ml</span>
           </div>
           <div className="text-[11px] text-stone-500 dark:text-stone-400 mt-0.5">
-            {isIce
-              ? `${recipe.hotWater}ml panas + ${recipe.iceAmount}g es`
-              : `Air panas murni`}
+            {isIce ? `${recipe.hotWater}ml panas + ${recipe.iceAmount}g es` : `Air panas murni`}
           </div>
         </div>
 
@@ -192,8 +181,7 @@ export const BrewResult: React.FC<BrewResultProps> = ({
             Suhu Air
           </div>
           <div className="text-xl sm:text-2xl font-black text-stone-900 dark:text-stone-50">
-            {recipe.waterTemperature}°
-            <span className="text-sm font-semibold text-stone-500">C</span>
+            {recipe.waterTemperature}°<span className="text-sm font-semibold text-stone-500">C</span>
           </div>
           <div className="text-[11px] text-stone-500 dark:text-stone-400 mt-0.5">
             Ideal untuk {recipe.input.roastProfile} roast
@@ -209,10 +197,7 @@ export const BrewResult: React.FC<BrewResultProps> = ({
           <div className="text-lg sm:text-xl font-black text-stone-900 dark:text-stone-50 leading-tight">
             {recipe.grindSetting.clicksOrSetting}
           </div>
-          <div
-            className="text-[11px] text-stone-500 dark:text-stone-400 mt-0.5 truncate"
-            title={recipe.grindSetting.grinderName}
-          >
+          <div className="text-[11px] text-stone-500 dark:text-stone-400 mt-0.5 truncate" title={recipe.grindSetting.grinderName}>
             {recipe.grindSetting.grinderName}
           </div>
         </div>
@@ -243,11 +228,7 @@ export const BrewResult: React.FC<BrewResultProps> = ({
               Instruksi Persiapan Japanese Iced V60
             </h4>
             <p className="text-xs text-cyan-900/80 dark:text-cyan-200/80 leading-relaxed">
-              Timbang dan masukkan{" "}
-              <strong>{recipe.iceAmount} gram es batu kristal</strong> langsung
-              ke dalam server/carafe di bawah dripper V60 sebelum menyeduh.
-              Total air panas yang dituangkan adalah{" "}
-              <strong>{recipe.hotWater} ml</strong>.
+              Timbang dan masukkan <strong>{recipe.iceAmount} gram es batu kristal</strong> langsung ke dalam server/carafe di bawah dripper V60 sebelum menyeduh. Total air panas yang dituangkan adalah <strong>{recipe.hotWater} ml</strong>.
             </p>
           </div>
         </div>
@@ -261,8 +242,7 @@ export const BrewResult: React.FC<BrewResultProps> = ({
               <span>📋</span> Tahapan Pours & Jadwal Seduh
             </h3>
             <p className="text-xs text-stone-500 dark:text-stone-400">
-              Ikuti jadwal dan volume air kumulatif berikut untuk hasil
-              ekstraksi maksimal
+              Ikuti jadwal dan volume air kumulatif berikut untuk hasil ekstraksi maksimal
             </p>
           </div>
           <span className="text-xs font-semibold px-3 py-1 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 self-start sm:self-auto">
@@ -279,8 +259,8 @@ export const BrewResult: React.FC<BrewResultProps> = ({
                 key={step.stepNumber}
                 className={`p-4 rounded-2xl border transition-all duration-200 ${
                   isCurrentlyActive
-                    ? "border-amber-500 bg-amber-50/70 dark:bg-amber-950/30 ring-2 ring-amber-500/20 shadow-xs"
-                    : "border-stone-200/80 dark:border-stone-800/80 bg-stone-50/40 dark:bg-stone-800/30 hover:border-stone-300 dark:hover:border-stone-700"
+                    ? 'border-amber-500 bg-amber-50/70 dark:bg-amber-950/30 ring-2 ring-amber-500/20 shadow-xs'
+                    : 'border-stone-200/80 dark:border-stone-800/80 bg-stone-50/40 dark:bg-stone-800/30 hover:border-stone-300 dark:hover:border-stone-700'
                 }`}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
@@ -288,8 +268,8 @@ export const BrewResult: React.FC<BrewResultProps> = ({
                     <span
                       className={`w-7 h-7 rounded-xl font-bold text-xs flex items-center justify-center ${
                         isCurrentlyActive
-                          ? "bg-amber-600 text-white"
-                          : "bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-200"
+                          ? 'bg-amber-600 text-white'
+                          : 'bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-200'
                       }`}
                     >
                       {step.stepNumber}
@@ -314,10 +294,7 @@ export const BrewResult: React.FC<BrewResultProps> = ({
 
                 <div className="space-y-1 pl-9">
                   <p className="text-xs text-stone-700 dark:text-stone-300">
-                    <strong className="font-semibold text-stone-900 dark:text-stone-100">
-                      Teknik:
-                    </strong>{" "}
-                    {step.technique}
+                    <strong className="font-semibold text-stone-900 dark:text-stone-100">Teknik:</strong> {step.technique}
                   </p>
                   <p className="text-[11px] text-stone-500 dark:text-stone-400 italic">
                     Tip: {step.note}
@@ -347,9 +324,7 @@ export const BrewResult: React.FC<BrewResultProps> = ({
           </p>
           <div className="pt-2 border-t border-stone-100 dark:border-stone-800 text-[11px] text-stone-500 dark:text-stone-400 space-y-1">
             <div>
-              <strong>Grind Size:</strong>{" "}
-              {recipe.grindSetting.micronDescription} (
-              {recipe.grindSetting.adjustmentNote})
+              <strong>Grind Size:</strong> {recipe.grindSetting.micronDescription} ({recipe.grindSetting.adjustmentNote})
             </div>
           </div>
         </div>
